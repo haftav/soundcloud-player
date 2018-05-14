@@ -8,6 +8,7 @@ import Waveform from './components/Waveform/Waveform';
 
 //Assets
 import song from './assets/eulberg.mp3';
+import photo from './assets/Metro.jpg';
 
 
 class Player extends Component {
@@ -26,7 +27,7 @@ class Player extends Component {
   render() {
     return (
       <Wrapper>
-        <Photo />
+        <Photo photo={photo}/>
         <TopRight>
           <PlayButton togglePlay={this.togglePlay} playing={this.state.playing}/>
           <Header>
@@ -44,7 +45,6 @@ class Player extends Component {
 export default Player;
 
 const Wrapper = glamorous.div({
-  border: '1px solid red',
   width: 700,
   height: 275,
   display: 'grid',
@@ -56,7 +56,7 @@ const TopRight = glamorous.div({
   gridColumnStart: 2,
   gridColumnEnd: 3,
   gridRow: 'span 1',
-  backgroundColor: 'steelblue',
+  backgroundColor: 'lightgray',
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center'
@@ -72,7 +72,6 @@ const BottomRight = glamorous.div({
 const Header = glamorous.div(
   {
     height: '100%',
-    border: '1px solid yellow',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
