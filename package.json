@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "glamor": "^2.20.40",
+    "glamorous": "^4.13.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-wavesurfer": "^0.8.6",
+    "wavesurfer.js": "1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
