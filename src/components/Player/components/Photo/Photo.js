@@ -15,7 +15,7 @@ const Wrapper = glamorous.div(
     {
         gridColumnStart: 1,
         gridColumnEnd: 2,
-        gridRow: 'span 3',
+        gridRow: 'span 2',
         backgroundSize: 'cover',
         backgroundPosition: 'center'
     }

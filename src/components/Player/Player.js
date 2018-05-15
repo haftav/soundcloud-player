@@ -5,6 +5,7 @@ import glamorous from 'glamorous';
 import Photo from './components/Photo/Photo';
 import PlayButton from './components/PlayButton/PlayButton';
 import Waveform from './components/Waveform/Waveform';
+import BottomButton from './components/BottomButton/BottomButton';
 
 //Assets
 import song from './assets/eulberg.mp3';
@@ -31,12 +32,17 @@ class Player extends Component {
         <TopRight>
           <PlayButton togglePlay={this.togglePlay} playing={this.state.playing}/>
           <Header>
-            <h2>artist</h2>
-            <h1>song title</h1>
+            <h2>Artist</h2>
+            <h1>Title</h1>
           </Header>
         </TopRight>
         <Waveform song={song} playing={this.state.playing}/>
-        <BottomRight />
+        <BottomRight>
+          <BottomButton icon='fa-heart' name='like' width={60}/>
+          <BottomButton icon='fa-retweet' name='repost' width={75}/>
+          <BottomButton icon='fa-share-square' name='share' width={60}/>
+          <BottomButton icon='fa-ellipsis-h' name='more' width={60}/>
+        </BottomRight>
       </Wrapper>
     );
   }
@@ -49,24 +55,28 @@ const Wrapper = glamorous.div({
   height: 275,
   display: 'grid',
   gridTemplateColumns: '1fr 2fr',
-  gridTemplateRows: '1fr 2fr 0.7fr'
+  gridTemplateRows: '0.7fr 2fr 0.5fr',
+  border: '1px solid red'
 })
 
 const TopRight = glamorous.div({
   gridColumnStart: 2,
   gridColumnEnd: 3,
   gridRow: 'span 1',
-  backgroundColor: 'lightgray',
   display: 'flex',
   justifyContent: 'flex-start',
-  alignItems: 'center'
+  alignItems: 'center',
+  border: '1px solid blue'
 })
 
 const BottomRight = glamorous.div({
   gridColumnStart: 2,
   gridColumnEnd: 3,
   gridRowStart: 3,
-  backgroundColor: 'skyblue'
+  display: 'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  border: '1px solid gray'
 })
 
 const Header = glamorous.div(
@@ -79,11 +89,15 @@ const Header = glamorous.div(
     marginLeft: 10,
     ' h1': {
       fontSize: 16,
-      margin: 0
+      fontWeight: 400,
+      margin: 0,
+      letterSpacing: '1px'
     },
     ' h2': {
-      fontSize: 15,
-      margin: 3
+      fontSize: 12,
+      fontWeight: 200,
+      marginBottom: 3,
+      letterSpacing: '1px'
     }
   }
 )

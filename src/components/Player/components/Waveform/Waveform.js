@@ -11,14 +11,17 @@ export default class Waveform extends Component {
     render() {
         const { song, playing } = this.props;
         return (
-            <Wrapper>
-                <Wavesurfer
-                    audioFile={song}
-                    playing={playing}
-                    options={{
-                        barWidth: 2,
-                        barHeight: 0.8
-                    }} />
+            <Wrapper id='waveform'>
+                <div style={{ height: '75%', width: '100%', border: '1px solid green' }}>
+                    <Wavesurfer
+                        audioFile={song}
+                        playing={playing}
+                        options={{
+                            barWidth: 2,
+                            height: 112
+                        }} />
+                </div>
+
             </Wrapper>
         )
     }
@@ -37,7 +40,16 @@ const Wrapper = glamorous.div(
         //     bottom: 0,
         //     opacity: '0.5'
         // },
-        position: 'relative'
+        position: 'relative',
+        gridColumnStart: 2,
+        gridColumnEnd: 3,
+        gridRowStart: 2,
+        gridRowEnd: 3,
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        border: '1px solid purple'
     }
 )
 
