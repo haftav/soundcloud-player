@@ -17,7 +17,9 @@ export default class Waveform extends Component {
             <Wrapper id='waveform'>
                 <div style={{ height: '75%', width: '100%', position: 'relative' }}>
                     <Opacity>
-                        <CommentTimeline comment={this.props.comment} commentClick={this.props.commentClick}/>
+                        <CommentTimeline comment={this.props.comment} 
+                                        commentClick={this.props.commentClick} 
+                                        commentDrag={this.props.commentDrag}/>
                         <Wavesurfer
                             audioFile={song}
                             playing={playing}
@@ -62,16 +64,11 @@ const Opacity = glamorous.div(
 const Wrapper = glamorous.div(
     {
         position: 'relative',
-        gridColumnStart: 2,
-        gridColumnEnd: 3,
-        gridRowStart: 2,
-        gridRowEnd: 3,
         height: '100%',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        opacity: '1',
-        border: '1px solid red'
+        opacity: '1'
     }
 )
 

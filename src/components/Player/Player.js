@@ -6,6 +6,7 @@ import Photo from './components/Photo/Photo';
 import PlayButton from './components/PlayButton/PlayButton';
 import Waveform from './components/Waveform/Waveform';
 import BottomButton from './components/BottomButton/BottomButton';
+import CommentInput from './components/CommentInput/CommentInput';
 
 //Assets
 import song from './assets/eulberg.mp3';
@@ -33,6 +34,13 @@ class Player extends Component {
     })
   }
 
+  commentDrag = (e) => {
+    console.log(e)
+    this.setState({
+      comment: Object.assign({}, this.state.comment, { commentActive: true, commentPosition: e.nativeEvent.offsetX })
+    })
+  }
+
   togglePlay = () => {
     this.setState({ playing: !this.state.playing })
   }
@@ -40,20 +48,32 @@ class Player extends Component {
   render() {
     return (
       <Wrapper>
-        <Photo photo={photo}/>
+        <Photo photo={photo} />
         <TopRight>
-          <PlayButton togglePlay={this.togglePlay} playing={this.state.playing}/>
+          <PlayButton togglePlay={this.togglePlay} playing={this.state.playing} />
           <Header>
             <h2>Artist</h2>
             <h1>Title</h1>
           </Header>
         </TopRight>
-        <Waveform song={song} playing={this.state.playing} comment={this.state.comment} commentClick={this.commentClick}/>
+        <MiddleRight>
+          <Waveform song={song} 
+                    playing={this.state.playing} 
+                    comment={this.state.comment} 
+                    commentClick={this.commentClick} 
+                    commentDrag={this.commentDrag}/>
+          {
+            this.state.comment.commentActive ?
+              <CommentInput />
+              :
+              null
+          }
+        </MiddleRight>
         <BottomRight>
-          <BottomButton icon='fa-heart' name='like' width={60}/>
-          <BottomButton icon='fa-retweet' name='repost' width={75}/>
-          <BottomButton icon='fa-share-square' name='share' width={60}/>
-          <BottomButton icon='fa-ellipsis-h' name='more' width={60}/>
+          <BottomButton icon='fa-heart' name='like' width={60} />
+          <BottomButton icon='fa-retweet' name='repost' width={75} />
+          <BottomButton icon='fa-share-square' name='share' width={60} />
+          <BottomButton icon='fa-ellipsis-h' name='more' width={60} />
         </BottomRight>
       </Wrapper>
     );
@@ -77,6 +97,14 @@ const TopRight = glamorous.div({
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
+})
+
+const MiddleRight = glamorous.div({
+  gridColumnStart: 2,
+  gridColumnEnd: 3,
+  gridRowStart: 2,
+  gridRowEnd: 3,
+  position: 'relative'
 })
 
 const BottomRight = glamorous.div({

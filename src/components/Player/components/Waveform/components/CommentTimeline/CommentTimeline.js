@@ -11,10 +11,10 @@ export default class CommentTimeline extends Component {
     render() {
         console.log(this.props.comment);
         return (
-            <Wrapper onClick={(e) => this.props.commentClick(e)}>
+            <Wrapper onClick={(e) => this.props.commentClick(e)} onDrag={(e) => this.props.commentDrag(e)}>
                 {
                     this.props.comment.commentActive ?
-                        <Comment left={this.props.comment.commentPosition}/>
+                        <Comment left={this.props.comment.commentPosition} onDrag={(e) => this.props.commentDrag(e)} draggable="true"/>
                         :
                         null
                 }
