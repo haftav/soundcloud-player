@@ -4,7 +4,7 @@ import glamorous from 'glamorous';
 export default function BottomButton ({ icon, name, width }) {
         return (
             <Wrapper width={width}>
-                <i class={`fa ${icon}`}></i>
+                <i className={`fa ${icon}`}></i>
                 <p>{ name }</p>
             </Wrapper>
         )

@@ -17,8 +17,20 @@ class Player extends Component {
     super();
 
     this.state = {
-      playing: false
+      playing: false,
+      comment: {
+        commentActive: false,
+        commentPosition: 0
+      }
     }
+
+    this.commentClick = this.commentClick.bind(this);
+  }
+
+  commentClick = (e) => {
+    this.setState({
+      comment: Object.assign({}, this.state.comment, { commentActive: true, commentPosition: e.nativeEvent.offsetX })
+    })
   }
 
   togglePlay = () => {
@@ -36,7 +48,7 @@ class Player extends Component {
             <h1>Title</h1>
           </Header>
         </TopRight>
-        <Waveform song={song} playing={this.state.playing}/>
+        <Waveform song={song} playing={this.state.playing} comment={this.state.comment} commentClick={this.commentClick}/>
         <BottomRight>
           <BottomButton icon='fa-heart' name='like' width={60}/>
           <BottomButton icon='fa-retweet' name='repost' width={75}/>
@@ -56,7 +68,6 @@ const Wrapper = glamorous.div({
   display: 'grid',
   gridTemplateColumns: '1fr 2fr',
   gridTemplateRows: '0.7fr 2fr 0.5fr',
-  border: '1px solid red'
 })
 
 const TopRight = glamorous.div({
@@ -66,7 +77,6 @@ const TopRight = glamorous.div({
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  border: '1px solid blue'
 })
 
 const BottomRight = glamorous.div({
@@ -76,7 +86,6 @@ const BottomRight = glamorous.div({
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'center',
-  border: '1px solid gray'
 })
 
 const Header = glamorous.div(
@@ -97,7 +106,8 @@ const Header = glamorous.div(
       fontSize: 12,
       fontWeight: 200,
       marginBottom: 3,
-      letterSpacing: '1px'
+      letterSpacing: '0.5px',
+      color: 'lightgray'
     }
   }
 )
