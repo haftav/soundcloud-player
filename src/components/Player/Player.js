@@ -36,6 +36,14 @@ class Player extends Component {
     }
   }
 
+  writeComment = (e) => {
+    if (!this.state.comment.commentActive) {
+      this.setState({
+        comment: Object.assign({}, this.state.comment, { commentActive: true, commentPosition: e.nativeEvent.offsetX })
+      })
+    }
+  }
+
   commentDrop = (e) => {
     e.preventDefault();
     let data = e.dataTransfer.getData("text");

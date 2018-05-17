@@ -11,6 +11,14 @@ export default class Waveform extends Component {
         super(props);
     }
 
+    waveformReady = (e) => {
+        console.log('duration: ', e.wavesurfer.getDuration(), 'current time: ', e.wavesurfer.getCurrentTime());
+    }
+
+    addComment = (e) => {
+        
+    }
+
     render() {
         const { song, playing } = this.props;
         return (
@@ -23,11 +31,14 @@ export default class Waveform extends Component {
                         <Wavesurfer
                             audioFile={song}
                             playing={playing}
+                            onReady={(e) => this.waveformReady(e)}
+                            onSeek={(e) => this.waveformReady(e)}
                             options={{
                                 barWidth: 2,
                                 barHeight: 1.5,
                                 height: 128,
-                                normalize: true
+                                normalize: true,
+                                cursorWidth: 0
                             }} />
                     </Opacity>
                 </div>

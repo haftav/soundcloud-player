@@ -13,6 +13,7 @@ export default function BottomButton ({ icon, name, width }) {
 const Wrapper = glamorous.div(
     {
     border: '1px solid #e3e3e3',
+    borderRadius: 2,
     height: 20,
     display: 'flex',
     justifyContent: 'center',

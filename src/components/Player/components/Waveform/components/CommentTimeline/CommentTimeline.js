@@ -7,6 +7,11 @@ export default class CommentTimeline extends Component {
 
     }
 
+    componentDidMount() {
+        let elHeight = document.getElementById('comment-timeline').clientWidth;
+        console.log(elHeight)
+    }
+
     allowDrop = (e) => {
         e.preventDefault();
     }
@@ -15,17 +20,11 @@ export default class CommentTimeline extends Component {
         e.dataTransfer.setData("text", e.target.id)
     }
 
-    drop = (e) => { 
-        e.preventDefault();
-        let data = e.dataTransfer.getData("text");
-        console.log(data);
-        e.target.appendChild(document.getElementById(data))
-    }
 
     render() {
         console.log(this.props.comment);
         return (
-            <Wrapper onClick={(e) => this.props.commentClick(e)} onDragOver={this.allowDrop} onDrop={this.props.commentDrop}>
+            <Wrapper id='comment-timeline' onClick={(e) => this.props.commentClick(e)} onDragOver={this.allowDrop} onDrop={this.props.commentDrop}>
                 {
                     this.props.comment.commentActive ?
                         <Comment id="comment" left={this.props.comment.commentPosition} draggable="true" onDragStart={this.drag} onClick={(e) => e.preventDefault()}/>
@@ -38,14 +37,13 @@ export default class CommentTimeline extends Component {
 }
 
 const Wrapper = glamorous.div({
-    border: '1px solid green',
     width: '100%',
     height: 25,
-    background: 'lightblue',
     position: 'absolute',
     top: '50%',
     left: 0,
-    zIndex: '50'
+    zIndex: '50',
+    cursor: 'pointer'
 })
 
 const Comment = glamorous.div(
