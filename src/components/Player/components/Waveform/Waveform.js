@@ -19,7 +19,7 @@ export default class Waveform extends Component {
                     <Opacity>
                         <CommentTimeline comment={this.props.comment} 
                                         commentClick={this.props.commentClick} 
-                                        commentDrag={this.props.commentDrag}/>
+                                        commentDrop={this.props.commentDrop}/>
                         <Wavesurfer
                             audioFile={song}
                             playing={playing}

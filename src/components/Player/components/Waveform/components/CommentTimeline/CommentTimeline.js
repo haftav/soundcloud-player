@@ -7,14 +7,28 @@ export default class CommentTimeline extends Component {
 
     }
 
+    allowDrop = (e) => {
+        e.preventDefault();
+    }
+
+    drag = (e) => {
+        e.dataTransfer.setData("text", e.target.id)
+    }
+
+    drop = (e) => { 
+        e.preventDefault();
+        let data = e.dataTransfer.getData("text");
+        console.log(data);
+        e.target.appendChild(document.getElementById(data))
+    }
 
     render() {
         console.log(this.props.comment);
         return (
-            <Wrapper onClick={(e) => this.props.commentClick(e)} onDrag={(e) => this.props.commentDrag(e)}>
+            <Wrapper onClick={(e) => this.props.commentClick(e)} onDragOver={this.allowDrop} onDrop={this.props.commentDrop}>
                 {
                     this.props.comment.commentActive ?
-                        <Comment left={this.props.comment.commentPosition} onDrag={(e) => this.props.commentDrag(e)} draggable="true"/>
+                        <Comment id="comment" left={this.props.comment.commentPosition} draggable="true" onDragStart={this.drag} onClick={(e) => e.preventDefault()}/>
                         :
                         null
                 }

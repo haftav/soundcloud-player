@@ -29,17 +29,29 @@ class Player extends Component {
   }
 
   commentClick = (e) => {
+    if (e.target.id !== 'comment') {
+      this.setState({
+        comment: Object.assign({}, this.state.comment, { commentActive: true, commentPosition: e.nativeEvent.offsetX })
+      })
+    }
+  }
+
+  commentDrop = (e) => {
+    e.preventDefault();
+    let data = e.dataTransfer.getData("text");
+    e.target.appendChild(document.getElementById(data))
     this.setState({
       comment: Object.assign({}, this.state.comment, { commentActive: true, commentPosition: e.nativeEvent.offsetX })
     })
   }
 
-  commentDrag = (e) => {
-    console.log(e)
-    this.setState({
-      comment: Object.assign({}, this.state.comment, { commentActive: true, commentPosition: e.nativeEvent.offsetX })
-    })
-  }
+  // commentDrag = (e) => {
+  //   console.log(e);
+  //   e.preventDefault();
+  //   this.setState({
+  //     comment: Object.assign({}, this.state.comment, { commentActive: true, commentPosition: e.nativeEvent.offsetX })
+  //   })
+  // }
 
   togglePlay = () => {
     this.setState({ playing: !this.state.playing })
@@ -61,7 +73,7 @@ class Player extends Component {
                     playing={this.state.playing} 
                     comment={this.state.comment} 
                     commentClick={this.commentClick} 
-                    commentDrag={this.commentDrag}/>
+                    commentDrop={this.commentDrop}/>
           {
             this.state.comment.commentActive ?
               <CommentInput />

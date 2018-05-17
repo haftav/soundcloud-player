@@ -2,7 +2,6 @@ import React from 'react';
 import glamorous from 'glamorous';
 
 export default function Photo ({ photo }) {
-    console.log(photo);
     return (
         <Wrapper photo={photo}/>
     )
