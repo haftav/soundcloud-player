@@ -26,6 +26,15 @@ class Player extends Component {
     }
 
     this.commentClick = this.commentClick.bind(this);
+    this.playerRef = React.createRef();
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false);
   }
 
   commentClick = (e) => {
@@ -53,13 +62,13 @@ class Player extends Component {
     })
   }
 
-  // commentDrag = (e) => {
-  //   console.log(e);
-  //   e.preventDefault();
-  //   this.setState({
-  //     comment: Object.assign({}, this.state.comment, { commentActive: true, commentPosition: e.nativeEvent.offsetX })
-  //   })
-  // }
+  handleClick = (e) => {
+    if (!this.playerRef.current.contains(e.target)) {
+      this.setState({
+        comment: Object.assign({}, this.state.comment, { commentActive: false })
+      })
+    }
+  }
 
   togglePlay = () => {
     this.setState({ playing: !this.state.playing })
@@ -67,8 +76,8 @@ class Player extends Component {
 
   render() {
     return (
-      <Wrapper>
-        <Photo photo={photo} />
+      <div style={wrapperStyle} ref={this.playerRef}>
+        <Photo photo={photo}/>
         <TopRight>
           <PlayButton togglePlay={this.togglePlay} playing={this.state.playing} />
           <Header>
@@ -95,12 +104,21 @@ class Player extends Component {
           <BottomButton icon='fa-share-square' name='share' width={60} />
           <BottomButton icon='fa-ellipsis-h' name='more' width={60} />
         </BottomRight>
-      </Wrapper>
+      </div>
     );
   }
 }
 
 export default Player;
+
+
+const wrapperStyle = {
+  width: 700,
+  height: 275,
+  display: 'grid',
+  gridTemplateColumns: '1fr 2fr',
+  gridTemplateRows: '0.7fr 2fr 0.5fr',
+}
 
 const Wrapper = glamorous.div({
   width: 700,
