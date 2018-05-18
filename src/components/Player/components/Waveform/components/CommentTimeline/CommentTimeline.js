@@ -30,7 +30,7 @@ export default class CommentTimeline extends Component {
             const { text, position } = el;
             return (
                 <div style={{ ...commentStyles, left: position }} id='comment' >
-                    <p>{text}</p>
+                    <p style={pStyles}>{text}</p>
                 </div>
             )
         })
@@ -60,6 +60,15 @@ const commentStyles = {
     position: 'absolute',
     top: 0,
     zIndex: 55
+}
+
+const pStyles = {
+    position: 'absolute',
+    display: 'block',
+    top: 8,
+    paddingTop: 10,
+    left: '0',
+    borderLeft: '1px solid red'
 }
 
 const Wrapper = glamorous.div({
