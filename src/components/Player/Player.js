@@ -22,7 +22,10 @@ class Player extends Component {
       comment: {
         commentActive: false,
         commentPosition: 0
-      }
+      },
+      commentList: [],
+      commentText: '',
+      songDuration: null
     }
 
     this.commentClick = this.commentClick.bind(this);
@@ -35,6 +38,12 @@ class Player extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
+  addDuration = (duration) => {
+    this.setState({
+      duration: duration
+    })
   }
 
   commentClick = (e) => {
@@ -62,6 +71,28 @@ class Player extends Component {
     })
   }
 
+  handleCommentChange = (e) => {
+    this.setState({
+      commentText: e.target.value
+    })
+  }
+
+  submitComment = (e) => {
+    if (e.key === 'Enter') {     
+      console.log('text: ', this.state.commentText, 'position: ', this.state.comment.commentPosition) 
+      let copy = [...this.state.commentList];
+      copy.push({
+        text: e.target.value,
+        position: this.state.comment.commentPosition
+      });
+      this.setState({
+        commentList: copy,
+        commentText: '', 
+        comment: Object.assign({}, { commentActive: false, commentPosition: 0 })
+      })
+    }
+  }
+
   handleClick = (e) => {
     if (!this.playerRef.current.contains(e.target)) {
       this.setState({
@@ -75,6 +106,7 @@ class Player extends Component {
   }
 
   render() {
+    console.log(this.state.commentList)
     return (
       <div style={wrapperStyle} ref={this.playerRef}>
         <Photo photo={photo}/>
@@ -88,12 +120,17 @@ class Player extends Component {
         <MiddleRight>
           <Waveform song={song} 
                     playing={this.state.playing} 
-                    comment={this.state.comment} 
+                    comment={this.state.comment}
+                    commentList={this.state.commentList} 
                     commentClick={this.commentClick} 
-                    commentDrop={this.commentDrop}/>
+                    commentDrop={this.commentDrop}
+                    addDuration={this.addDuration}
+                    duration={this.state.duration}/>
           {
             this.state.comment.commentActive ?
-              <CommentInput />
+              <CommentInput commentText={this.state.commentText} 
+                            handleCommentChange={this.handleCommentChange}
+                            submitComment={this.submitComment} />
               :
               null
           }

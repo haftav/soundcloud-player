@@ -9,17 +9,28 @@ require('wavesurfer.js');
 export default class Waveform extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            comments: [],
+            duration: null
+        }
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.setState({
+            comments: newProps.commentList
+        })
     }
 
     waveformReady = (e) => {
-        console.log('duration: ', e.wavesurfer.getDuration(), 'current time: ', e.wavesurfer.getCurrentTime());
-    }
-
-    addComment = (e) => {
-        
+        this.setState({
+            comments: this.props.commentList,
+            duration: e.wavesurfer.getDuration()
+        })
     }
 
     render() {
+        console.log(this.state);
         const { song, playing } = this.props;
         return (
             <Wrapper id='waveform'>
@@ -27,7 +38,9 @@ export default class Waveform extends Component {
                     <Opacity>
                         <CommentTimeline comment={this.props.comment} 
                                         commentClick={this.props.commentClick} 
-                                        commentDrop={this.props.commentDrop}/>
+                                        commentDrop={this.props.commentDrop}
+                                        commentList={this.state.comments}
+                                        duration={this.state.duration}/>
                         <Wavesurfer
                             audioFile={song}
                             playing={playing}
@@ -38,7 +51,8 @@ export default class Waveform extends Component {
                                 barHeight: 1.5,
                                 height: 128,
                                 normalize: true,
-                                cursorWidth: 0
+                                cursorWidth: 0,
+                                progressColor: '#FF6243'
                             }} />
                     </Opacity>
                 </div>
